@@ -130,8 +130,8 @@ graph TB
   CUSTOM --> DV["diffview"]
   CUSTOM --> LSP["LSP overrides<br/>(inlay hints, settings)"]
 
-  SN -.Mermaid.-> MMD["@mermaid-js/mermaid-cli (mmdc)"]
-  SN -.kitty graphics.-> WT["WezTerm (kitty protocol)"]
+  SN -. "Mermaid" .-> MMD["@mermaid-js/mermaid-cli (mmdc)"]
+  SN -. "kitty graphics" .-> WT["WezTerm (kitty protocol)"]
 ```
 
 ---

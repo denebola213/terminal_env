@@ -153,8 +153,8 @@ graph LR
     Q2["pane 2: codex"]
   end
 
-  P1 -.- P2
-  P2 -.編集.-> P1
+  P1 -.-> P2
+  P2 -. "編集" .-> P1
 ```
 
 ### パターン C: Claude Code 自身の worktree 分離機能

@@ -40,9 +40,9 @@ graph TB
   PS  --> NV2["Neovim (LazyVim)"]
   DC  --> NV3["Neovim (LazyVim)"]
 
-  NV1 -.chezmoi.-> CFG[("dotfiles リポジトリ")]
-  NV2 -.chezmoi.-> CFG
-  NV3 -.devcontainer.dotfiles.-> CFG
+  NV1 -. "chezmoi" .-> CFG[("dotfiles リポジトリ")]
+  NV2 -. "chezmoi" .-> CFG
+  NV3 -. "devcontainer dotfiles" .-> CFG
 
   NV1 --> LSP1["vtsls / clangd / roslyn"]
   NV2 --> LSP2["vtsls / clangd / roslyn"]
