@@ -1,0 +1,87 @@
+# =====================================================================
+# starship プロンプト設定
+# =====================================================================
+# 配置: ~/.config/starship.toml
+# 3 環境で同一の見栄えを保証
+# =====================================================================
+
+# プロンプト全体のフォーマット
+format = """
+[░▒▓](#a6e3a1)\
+$os\
+$username\
+[](bg:#313244 fg:#313244)\
+$directory\
+[](fg:#313244 bg:#45475a)\
+$git_branch\
+$git_status\
+[](fg:#45475a bg:#313244)\
+$nodejs\
+$rust\
+$python\
+$java\
+$golang\
+[](fg:#313244 bg:#313244)\
+$time\
+[](bg:#313244)\
+$character"""
+
+# OS ラベル
+[os]
+disabled = false
+format = "[ $symbol ](bg:#a6e3a1 fg:#1e1e2e)"
+
+[os.symbols]
+Arch = "󰣇"
+Ubuntu = "󰕈"
+Debian = "󰕈"
+Macos = "󰀵"
+Windows = "󰍲"
+Linux = "󰌽"
+
+# ユーザー (root / ssh 時のみ表示)
+[username]
+show_always = false
+format = "[ $user ](bg:#fab387 fg:#1e1e2e) "
+style_user = "bold"
+
+# ディレクトリ (短縮表示)
+[directory]
+style = "bold"
+format = "[ $path ]($style)(fg:#cdd6f4 bg:#313244)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Git
+[git_branch]
+symbol = ""
+format = "[ $symbol $branch ]($style)(fg:#cdd6f4 bg:#45475a)"
+style = "bold"
+
+[git_status]
+format = "[$all_status$ahead_behind ]($style)(fg:#cdd6f4 bg:#45475a)"
+style = "bold"
+
+# 言語ランタイム (必要最低限)
+[nodejs]
+format = "[ $symbol( $version) ]($style)"
+style = "bold yellow"
+
+[rust]
+format = "[ $symbol( $version) ]($style)"
+style = "bold red"
+
+[python]
+format = "[ $symbol( $version) ]($style)"
+style = "bold blue"
+
+# 時間 (右側)
+[time]
+disabled = false
+format = "[ 󰥔 $time ]($style)(bg:#313244 fg:#585b70)"
+time_format = "%R"
+style = "bold"
+
+[character]
+success_symbol = "[❯](bold fg:#a6e3a1)"
+error_symbol = "[❯](bold fg:#f38ba8)"

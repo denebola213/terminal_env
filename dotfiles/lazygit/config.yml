@@ -1,0 +1,79 @@
+# =====================================================================
+# lazygit 設定 (3 環境共通)
+# =====================================================================
+# 配置:
+#   Linux  : ~/.config/lazygit/config.yml
+#   Windows: %APPDATA%\lazygit\config.yml
+#   chezmoi: dot_config/lazygit/config.yml
+# =====================================================================
+
+gui:
+  showIcons: true
+  iconsStyle: unicode
+  theme:
+    activeBorderColor:
+      - "#fab387"
+      - bold
+    inactiveBorderColor:
+      - "#585b70"
+    optionsTextColor:
+      - "#a6e3a1"
+    selectedLineBgColor:
+      - "#313244"
+    selectedRangeBgColor:
+      - "#45475a"
+    cherryPickedCommitFgColor:
+      - "#fab387"
+    cherryPickedCommitBgColor:
+      - "#313244"
+    markedCommitFgColor:
+      - "#1e1e2e"
+    markedCommitBgColor:
+      - "#a6e3a1"
+    defaultFgColor:
+      - "#cdd6f4"
+
+git:
+  paging:
+    pager: delta --paging=never
+  log:
+    order: "topo-order"
+    showGraph: "always"
+    dateFormat: "short"
+    dateFormatShort: "2006-01-02"
+    prettyFormat: "%h %C(auto)%d %s %C(green)(%cr) %C(blue)[%an]"
+    # worktree を一覧で見やすく
+    allBranchesLogCmd: "git log --graph --oneline --decorate --all -n 200"
+
+# キーマップ
+keybindings:
+  universal:
+    nextScreenMode: "<tab>"
+    prevScreenMode: "<backtab>"
+    jumpToBlock: ["j", "k"]
+  files:
+    # worktree 関連のよく使う操作を素早く
+    openWorktree: "w"
+    newWorktree: "W"
+  commits:
+    viewResetOptions: "u"
+  branches:
+    # worktree 選択がやりやすいように
+    checkoutBranchByName: "b"
+    forceCheckoutBranch: "F"
+
+# worktree 関連コマンド
+# lazygit 内で 'w' で worktree 一覧 → 選択して移動可能
+# コマンドパレット: 'X' → "View worktree options" で全操作にアクセス
+
+os:
+  # エディタとして Neovim をデフォルトに (git コミットメッセージ含む)
+  editCommand: "nvim"
+  editCommandAtLine: "nvim +{LINE} {FILE}"
+
+# コミットビューで delta をプレビューアに
+diff:
+  arg: "--color-only --paging=never"
+
+# 言語を統一
+language: "auto"

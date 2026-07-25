@@ -1,0 +1,35 @@
+{
+  "name": "terminal-env",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": false
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscodevim.vim"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"
+      }
+    }
+  },
+  "dotfiles": {
+    "repository": "https://github.com/your-name/terminal-env-dotfiles.git",
+    "installPath": "~/dotfiles",
+    "targetPath": "~/dotfiles-target"
+  },
+  "postCreateCommand": "bash scripts/install-devcontainer.sh",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+  ],
+  "containerUser": "vscode",
+  "updateRemoteUserUID": true
+}

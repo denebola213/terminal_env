@@ -1,0 +1,91 @@
+# =====================================================================
+# git 共通設定
+# =====================================================================
+# 配置:
+#   Linux  : ~/.gitconfig
+#   Windows: %USERPROFILE%\.gitconfig
+#   chezmoi: dot_gitconfig
+# =====================================================================
+
+[user]
+    name  = Your Name
+    email = your.email@example.com
+
+[core]
+    editor      = nvim
+    pager       = delta
+    autocrlf    = input
+    whitespaceFix = true
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+
+[pull]
+    rebase = true
+    autoStash = true
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+    all = true
+
+[rerere]
+    enabled = true
+
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+
+[merge]
+    conflictStyle = zdiff3
+    tool = nvimdiff
+
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
+    trustExitCode = true
+
+[difftool "delta"]
+    cmd = delta --paging=never
+
+[alias]
+    # worktree 関連
+    wt      = worktree
+    wtl     = worktree list
+    wta     = worktree add
+    wtr     = worktree remove
+    # ログ
+    lg      = log --oneline --decorate --graph --all
+    l       = log --oneline --decorate -10
+    # 状態
+    st      = status -sb
+    # よく使うやつ
+    co      = checkout
+    cob     = checkout -b
+    br      = branch
+    cm      = commit -m
+    cp      = cherry-pick
+    rb      = rebase
+    rbi     = rebase -i
+    # 直前の commit を修正
+    amend   = commit --amend --no-edit
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = reverse video
+    plus-style         = syntax "#a6e3a1"
+    minus-style        = syntax "#f38ba8"
+    zero-style         = syntax "#cdd6f4"
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow
+    file-decoration-style = bold
+    hunk-header-decoration-style = bold
+
+[github]
+    user = your-github-username
