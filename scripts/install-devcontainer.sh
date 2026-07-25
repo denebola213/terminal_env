@@ -102,10 +102,15 @@ for rc in ~/.bashrc ~/.zshrc; do
   grep -qF 'bash_aliases.sh' "$rc" || {
     echo "[ -f ~/.bash_aliases ] && . ~/.bash_aliases" >> "$rc"
   }
+  # starship も両シェル対応
+  grep -qF 'starship init' "$rc" 2>/dev/null || {
+    if [ "$rc" = "~/.zshrc" ]; then
+      echo 'eval "$(starship init zsh)"' >> "$rc"
+    else
+      echo 'eval "$(starship init bash)"' >> "$rc"
+    fi
+  }
 done
-grep -qF 'starship init' ~/.bashrc 2>/dev/null || {
-  echo 'eval "$(starship init bash)"' >> ~/.bashrc
-}
 
 # ---- フォント ----
 echo "==> Installing Nerd Font"

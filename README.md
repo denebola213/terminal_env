@@ -134,7 +134,8 @@ terminal_env/
 
 ```bash
 # パッケージインストール
-sudo pacman -S neovim lazygit starship fzf zoxide eza bat ripgrep fd delta nodejs npm
+# 注: Arch では delta → git-delta, npm は nodejs に同梱
+sudo pacman -S --needed neovim lazygit starship fzf zoxide eza bat ripgrep fd git-delta nodejs
 yay -S wezterm          # AUR
 
 # dotfiles 展開
@@ -216,7 +217,10 @@ WezTerm の workspace 機能と組み合わせ、worktree ごとに workspace �
 ```bash
 which mmdc   # @mermaid-js/mermaid-cli が入っているか
 # なければ:
+# - 通常の npm (root 所有) の場合:
 sudo npm install -g @mermaid-js/mermaid-cli
+# - Volta / nvm 等のユーザー所有 npm の場合は sudo 不要:
+npm install -g @mermaid-js/mermaid-cli
 ```
 
 WezTerm の `enable_kitty_graphics` が `true` かも `dotfiles/wezterm/wezterm.lua` で確認。

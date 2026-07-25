@@ -90,8 +90,9 @@ wsl -d Arch
 
 ```bash
 sudo pacman -Syu
-sudo pacman -S neovim git lazygit starship fzf zoxide eza bat ripgrep fd delta \
-               nodejs npm go rust python base-devel clang llvm lldb gdb
+# 注: Arch では delta → git-delta, npm は nodejs に同梱されているため個別不要
+sudo pacman -S --needed neovim git lazygit starship fzf zoxide eza bat ripgrep fd git-delta \
+               nodejs go rust python base-devel clang llvm lldb gdb
 
 # AUR (yay が入っている前提)
 yay -S --noconfirm wezterm
@@ -255,7 +256,10 @@ LazyVim が自動的に:
 mmdc --version
 
 # なければ
+# - 通常の npm (root 所有) の場合:
 sudo npm install -g @mermaid-js/mermaid-cli
+# - Volta / nvm 等のユーザー所有 npm の場合は sudo 不要:
+npm install -g @mermaid-js/mermaid-cli
 ```
 
 WezTerm 内で `nvim sample.md` を開き、```mermaid ブロックがあれば `snacks.image` がレンダリングする。

@@ -25,13 +25,18 @@ fi
 echo "==> Detected: $DISTRO ($PM)"
 
 # ---- 必須ツール (ターミナル / エディタ / git TUI) ----
+# Arch パッケージ名:
+#   - delta は extra に "git-delta" として存在
+#   - npm は nodejs に同梱されているので個別指定不要
 echo "==> Installing core packages"
 case "$PM" in
   pacman)
-    sudo pacman -Syu --noconfirm \
-      neovim git lazygit starship fzf zoxide eza bat ripgrep fd delta \
-      nodejs npm go rust python base-devel \
-      clang llvm lldb gdb
+    sudo pacman -Syu --needed --noconfirm \
+      neovim git lazygit starship fzf zoxide eza bat ripgrep fd git-delta \
+      nodejs go rust python base-devel \
+      clang llvm lldb gdb || {
+        echo "  WARN: 一部パッケージのインストールに失敗しましたが続行します"
+      }
     ;;
   apt)
     sudo apt update
@@ -73,9 +78,16 @@ if ! command -v nvim >/dev/null 2>&1; then
 fi
 
 # ---- Mermaid CLI (Markdown プレビュー用) ----
+# Volta 経由の npm がある環境では sudo なし、それ以外は sudo でグローバル導入
 echo "==> Installing @mermaid-js/mermaid-cli (mmdc)"
 if command -v npm >/dev/null 2>&1; then
-  sudo npm install -g @mermaid-js/mermaid-cli 2>/dev/null || npm install -g @mermaid-js/mermaid-cli
+  # sudo で呼ぶと root の PATH に volta がない → 失敗する。
+  # npm が root 以外の所有 (Volta など) なら sudo なしで実行
+  if [ "$(stat -c %U "$(command -v npm)" 2>/dev/null)" != "root" ]; then
+    npm install -g @mermaid-js/mermaid-cli 2>/dev/null || echo "  WARN: mmdc インストール失敗"
+  else
+    sudo npm install -g @mermaid-js/mermaid-cli 2>/dev/null || echo "  WARN: mmdc インストール失敗"
+  fi
 fi
 
 # ---- fzf (apt では fuzzy finder パッケージ) ----

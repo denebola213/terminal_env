@@ -33,7 +33,7 @@ return {
 
   -- 任意: file rename を便利にする
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     opts = {
       mappings = {
         go_in       = "l",

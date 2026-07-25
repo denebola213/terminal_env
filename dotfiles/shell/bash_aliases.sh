@@ -1,9 +1,9 @@
--- =====================================================================
--- bash / zsh 共通エイリアス & 設定
--- =====================================================================
--- 配置: ~/.bashrc.d/aliases.sh (source する) または ~/.bash_aliases
--- 3 環境で同等のコマンド体系を保証
--- =====================================================================
+# =====================================================================
+# bash / zsh 共通エイリアス & 設定
+# =====================================================================
+# 配置: ~/.bashrc.d/aliases.sh (source する) または ~/.bash_aliases
+# 3 環境で同等のコマンド体系を保証
+# =====================================================================
 
 # ---- モダンコマンド ----
 alias ls='eza --icons --group-directories-first'
@@ -52,7 +52,12 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init bash)"
+  # bash と zsh で初期化コマンドが異なるためシェル判定
+  if [ -n "${ZSH_VERSION:-}" ]; then
+    eval "$(zoxide init zsh)"
+  else
+    eval "$(zoxide init bash)"
+  fi
 fi
 
 # ---- 環境変数 ----
@@ -64,13 +69,28 @@ export MANPAGER='nvim +Man!'
 # bat テーマ
 export BAT_THEME='Catppuccin Mocha'
 
-# fzf の Ctrl-R で ripgrep 全文検索
-if command -v fzf >/dev/null 2>&1; then
-  __fzf_history_grep() {
-    local selected
-    selected=$(builtin history | fzf --query="$READLINE_LINE" +m) || return
-    READLINE_LINE="$selected"
-    READLINE_POINT=${#READLINE_LINE}
-  }
-  bind -x '"\C-r": __fzf_history_grep' 2>/dev/null || true
+# fzf の Ctrl-R で ripgrep 全文検索 (シェル別)
+if [ -n "${ZSH_VERSION:-}" ]; then
+  # zsh 用 (bindkey)
+  if command -v fzf >/dev/null 2>&1; then
+    __fzf_history_grep() {
+      local selected
+      selected=$(builtin history -i 2>/dev/null | fzf --query="$LBUFFER" +m) || return
+      LBUFFER="$selected"
+      zle reset-prompt
+    }
+    zle -N __fzf_history_grep
+    bindkey '^R' __fzf_history_grep
+  fi
+else
+  # bash 用 (bind -x)
+  if command -v fzf >/dev/null 2>&1; then
+    __fzf_history_grep() {
+      local selected
+      selected=$(builtin history | fzf --query="$READLINE_LINE" +m) || return
+      READLINE_LINE="$selected"
+      READLINE_POINT=${#READLINE_LINE}
+    }
+    bind -x '"\C-r": __fzf_history_grep' 2>/dev/null || true
+  fi
 fi

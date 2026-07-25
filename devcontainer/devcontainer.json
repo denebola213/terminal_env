@@ -21,7 +21,7 @@
     }
   },
   "dotfiles": {
-    "repository": "https://github.com/your-name/terminal-env-dotfiles.git",
+    "repository": "https://github.com/your-name/dotfiles-repo.git",
     "installPath": "~/dotfiles",
     "targetPath": "~/dotfiles-target"
   },

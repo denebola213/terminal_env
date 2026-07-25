@@ -1,9 +1,9 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lang.clangd",
-    "lazyvim.plugins.extras.lsp.none-ls",
-    "lazyvim.plugins.extras.coding.nvim-cmp",
-    "lazyvim.plugins.extras.ui.edgy"
+    "lang.typescript",
+    "lang.clangd",
+    "lsp.none-ls",
+    "coding.nvim-cmp",
+    "ui.edgy"
   ]
 }
