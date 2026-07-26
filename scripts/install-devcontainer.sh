@@ -93,6 +93,7 @@ mkdir -p ~/.config/{nvim/lua/plugins,lazygit,wezterm,starship}
 [ -d "$DOTFILES_DIR/nvim" ] && cp -rn "$DOTFILES_DIR/nvim/." ~/.config/nvim/
 [ -d "$DOTFILES_DIR/lazygit" ] && cp -rn "$DOTFILES_DIR/lazygit/." ~/.config/lazygit/
 [ -d "$DOTFILES_DIR/starship" ] && cp -rn "$DOTFILES_DIR/starship/." ~/.config/starship/
+[ -d "$DOTFILES_DIR/wezterm" ] && cp -rn "$DOTFILES_DIR/wezterm/." ~/.config/wezterm/
 [ -d "$DOTFILES_DIR/git" ] && cp -n "$DOTFILES_DIR/git/.gitconfig" ~/.gitconfig 2>/dev/null || true
 [ -d "$DOTFILES_DIR/shell" ] && cp -n "$DOTFILES_DIR/shell/bash_aliases.sh" ~/.bash_aliases 2>/dev/null || true
 

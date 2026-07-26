@@ -111,6 +111,7 @@ mkdir -p ~/.config/{nvim/lua/plugins,lazygit,wezterm,starship}
 [ -d "$DOTFILES_DIR/nvim" ] && cp -r "$DOTFILES_DIR/nvim/." ~/.config/nvim/
 [ -d "$DOTFILES_DIR/lazygit" ] && cp -r "$DOTFILES_DIR/lazygit/." ~/.config/lazygit/
 [ -d "$DOTFILES_DIR/starship" ] && cp -r "$DOTFILES_DIR/starship/." ~/.config/starship/
+[ -d "$DOTFILES_DIR/wezterm" ] && cp -r "$DOTFILES_DIR/wezterm/." ~/.config/wezterm/
 [ -d "$DOTFILES_DIR/git" ] && cp "$DOTFILES_DIR/git/.gitconfig" ~/.gitconfig 2>/dev/null || true
 [ -d "$DOTFILES_DIR/shell" ] && cp "$DOTFILES_DIR/shell/bash_aliases.sh" ~/.bash_aliases 2>/dev/null || true
 
