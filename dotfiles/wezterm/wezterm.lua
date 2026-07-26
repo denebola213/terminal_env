@@ -73,7 +73,9 @@ config.keys = {
 --
 -- domain はランチャー (Ctrl+Shift+w) から切り替えることも可能。
 -- ---------------------------------------------------------------------
-config.default_domain = "DefaultUnixDomain"
+-- デフォルトドメインは WezTerm が自動選出するので明示指定しない
+-- (「DefaultUnixDomain」という名前は存在せず、指定すると起動時クラッシュする)
+-- config.default_domain = "local"
 
 if wezterm.add_to_config_search_path then
   wezterm.add_to_config_search_path(
