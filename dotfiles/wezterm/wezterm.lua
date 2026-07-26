@@ -48,7 +48,7 @@ config.keys = {
   { key = "c", mods = leader, action = act.SpawnTab "CurrentPaneDomain" },
   { key = "n", mods = leader, action = act.ActivateTabRelative(1) },
   { key = "p", mods = leader, action = act.ActivateTabRelative(-1) },
-  { key = "w", mods = leader, action = act.ShowLauncherArgs { flags = "WORKSPACE,TABS" } },
+  { key = "w", mods = leader, action = act.ShowLauncherArgs { flags = { "WORKSPACE", "TABS" } } },
 
   -- workspace (worktree を 1 workspace に割り当て)
   { key = "1", mods = leader, action = act.SwitchToWorkspace { name = "main" } },
