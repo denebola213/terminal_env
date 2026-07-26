@@ -102,7 +102,7 @@ terminal_env/
 
 ## 主要なキーバインド早見表
 
-### WezTerm (`Ctrl+Shift+a` が leader)
+### WezTerm (`Ctrl+a` が leader)
 
 | キー | 動作 |
 |---|---|
@@ -111,7 +111,7 @@ terminal_env/
 | `<leader>z` | ペイン最大化 / 復元 |
 | `<leader>c` | 新規タブ |
 | `<leader>1/2/3` | workspace (worktree) 切替 |
-| `<leader>w` | ランチャー (workspace / tabs 一覧) |
+| `<leader>w` / `<leader>W` | ランチャー (workspace / tabs 一覧) |
 | `<leader>g` | lazygit 起動 |
 | `<leader>e` | `nvim .` 起動 |
 

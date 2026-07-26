@@ -7,7 +7,7 @@
 --   chezmoi 管理時は dot_wezterm/wezterm.lua として配置
 -- =====================================================================
 
-local wezterm = require "wezterm"
+local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
@@ -30,107 +30,111 @@ config.enable_kitty_keyboard = true
 -- ---------------------------------------------------------------------
 -- キーバインド (マルチプレクサ内蔵)
 -- ---------------------------------------------------------------------
-local leader = { key = "a", mods = "CTRL|SHIFT", timeout_milliseconds = 2000 }
+-- leader: Ctrl+a (tmux 互換)。Ctrl+Shift+a は一部ターミナル環境で
+-- ターミナルエミュレータ自身に握り潰されるため Ctrl を採用。
+local leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 
 config.leader = leader
 config.keys = {
-  -- pane 操作
-  { key = "|", mods = "LEADER|SHIFT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-  { key = "-", mods = "LEADER", action = act.SplitVertical   { domain = "CurrentPaneDomain" } },
-  { key = "h", mods = "LEADER", action = act.ActivatePaneDirection "Left" },
-  { key = "l", mods = "LEADER", action = act.ActivatePaneDirection "Right" },
-  { key = "k", mods = "LEADER", action = act.ActivatePaneDirection "Up" },
-  { key = "j", mods = "LEADER", action = act.ActivatePaneDirection "Down" },
-  { key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-  { key = "x", mods = "LEADER", action = act.CloseCurrentPane { confirm = false } },
+	-- pane 操作
+	{ key = "|", mods = "LEADER|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
+	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
+	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
+	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
+	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
+	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
 
-  -- tab 操作
-  { key = "c", mods = "LEADER", action = act.SpawnTab "CurrentPaneDomain" },
-  { key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
-  { key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
-  { key = "w", mods = "LEADER", action = act.ShowLauncherArgs { flags = "WORKSPACES" } },
-  { key = "W", mods = "LEADER|SHIFT", action = act.ShowLauncherArgs { flags = "TABS" } },
+	-- tab 操作
+	{ key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
+	{ key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
+	{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "WORKSPACES" }) },
+	{ key = "W", mods = "LEADER|SHIFT", action = act.ShowLauncherArgs({ flags = "TABS" }) },
 
-  -- workspace (worktree を 1 workspace に割り当て)
-  { key = "1", mods = "LEADER", action = act.SwitchToWorkspace { name = "main" } },
-  { key = "2", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-a" } },
-  { key = "3", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-b" } },
+	-- workspace (worktree を 1 workspace に割り当て)
+	{ key = "1", mods = "LEADER", action = act.SwitchToWorkspace({ name = "main" }) },
+	{ key = "2", mods = "LEADER", action = act.SwitchToWorkspace({ name = "feat-a" }) },
+	{ key = "3", mods = "LEADER", action = act.SwitchToWorkspace({ name = "feat-b" }) },
 
-  -- 共通ツール
-  { key = "g", mods = "LEADER", action = act.SpawnCommandInNewTab {
-      args = { "lazygit" }, domain = "CurrentPaneDomain",
-  } },
-  { key = "e", mods = "LEADER", action = act.SpawnCommandInNewTab {
-      args = { "nvim", "." }, domain = "CurrentPaneDomain",
-  } },
+	-- 共通ツール
+	{
+		key = "g",
+		mods = "LEADER",
+		action = act.SpawnCommandInNewTab({
+			args = { "lazygit" },
+			domain = "CurrentPaneDomain",
+		}),
+	},
+	{
+		key = "e",
+		mods = "LEADER",
+		action = act.SpawnCommandInNewTab({
+			args = { "nvim", "." },
+			domain = "CurrentPaneDomain",
+		}),
+	},
 }
 
 -- ---------------------------------------------------------------------
 -- Domain: 1 ウィンドウ内で複数環境を同居
 -- ---------------------------------------------------------------------
 -- 環境変数で自動判定。HOSTNAME が WSL なら WSL ドメイン、PowerShell 内なら PS、
--- ローカル Linux なら Default として動作する。
+-- ローカル Linux ならデフォルトドメインとして動作する。
 --
--- domain はランチャー (Ctrl+Shift+w) から切り替えることも可能。
+-- domain はランチャー (Leader + w) から切り替えることも可能。
 -- ---------------------------------------------------------------------
 -- デフォルトドメインは WezTerm が自動選出するので明示指定しない
 -- (「DefaultUnixDomain」という名前は存在せず、指定すると起動時クラッシュする)
 -- config.default_domain = "local"
 
 if wezterm.add_to_config_search_path then
-  wezterm.add_to_config_search_path(
-    wezterm.home_dir .. "/.config/wezterm/domains"
-  )
+	wezterm.add_to_config_search_path(wezterm.home_dir .. "/.config/wezterm/domains")
 end
 
 -- SSH 接続先 (devcontainer) のヒント
 -- ~/.ssh/config に host devcontainer を定義しておく想定
 config.ssh_domains = {
-  {
-    name = "devcontainer",
-    remote_address = "devcontainer",
-  },
+	{
+		name = "devcontainer",
+		remote_address = "devcontainer",
+	},
 }
 
 -- WSL2 の distro 名。デフォルトは Arch。環境によって変更する。
-local WSL_DISTRO = os.getenv "WSL_DISTRO_NAME" or "Arch"
-
--- ランチャー / domain 切替 UI で選択可能にする
-local launcher_opts = {
-  -- `wezterm start --domain wsl-arch` 等で直接起動も可
-  domain = "DefaultUnixDomain",
-}
+local WSL_DISTRO = os.getenv("WSL_DISTRO_NAME") or "Arch"
 
 -- タイトルフォーマット
 wezterm.on("format-tab-title", function(tab, tabs, panes, cfg, hover, max_width)
-  local title = tab.active_pane.title
-  if tab.is_active then
-    return { { Foreground = { Color = "#fab387" } }, { Text = " " .. wezterm.truncate_right(title, max_width - 4) .. " " } }
-  end
-  return { { Text = " " .. wezterm.truncate_right(title, max_width - 4) .. " " } }
+	local title = tab.active_pane.title
+	if tab.is_active then
+		return {
+			{ Foreground = { Color = "#fab387" } },
+			{ Text = " " .. wezterm.truncate_right(title, max_width - 4) .. " " },
+		}
+	end
+	return { { Text = " " .. wezterm.truncate_right(title, max_width - 4) .. " " } }
 end)
 
 -- ステータスバー (右下)
 wezterm.on("update-right-status", function(window, pane)
-  local names = {}
-  for _, w in ipairs(mux.get_workspace_names()) do
-    table.insert(names, w)
-  end
-  local current = window:active_workspace()
-  window:set_right_status(
-    wezterm.format { { Background = { Color = "#1e1e2e" } } }
-    .. wezterm.format {
-      { Foreground = { Color = "#cdd6f4" } },
-      { Text = "  workspace: " },
-      { Foreground = { Color = "#a6e3a1" } },
-      { Text = current },
-      { Foreground = { Color = "#585b70" } },
-      { Text = "  |  domains: " },
-      { Foreground = { Color = "#f9e2af" } },
-      { Text = table.concat(names, ",") },
-      { Text = "  " },
-    }
-  )
+	local names = {}
+	for _, w in ipairs(mux.get_workspace_names()) do
+		table.insert(names, w)
+	end
+	local current = window:active_workspace()
+	window:set_right_status(wezterm.format({ { Background = { Color = "#1e1e2e" } } }) .. wezterm.format({
+		{ Foreground = { Color = "#cdd6f4" } },
+		{ Text = "  workspace: " },
+		{ Foreground = { Color = "#a6e3a1" } },
+		{ Text = current },
+		{ Foreground = { Color = "#585b70" } },
+		{ Text = "  |  domains: " },
+		{ Foreground = { Color = "#f9e2af" } },
+		{ Text = table.concat(names, ",") },
+		{ Text = "  " },
+	}))
 end)
 
 -- ---------------------------------------------------------------------

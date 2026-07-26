@@ -66,7 +66,7 @@ winget install DEVCOM.JetBrainsMonoNerdFont
 
 ```powershell
 wezterm start
-# Ctrl+Shift+a → Ctrl+Shift+w でランチャー → "domain: WSL" が表示されれば OK
+# Ctrl+a → Ctrl+w でランチャー → "domain: WSL" が表示されれば OK
 ```
 
 ---

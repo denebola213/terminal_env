@@ -91,9 +91,9 @@ sequenceDiagram
 `dotfiles/wezterm/wezterm.lua` の `keys` セクション:
 
 ```lua
-{ key = "1", mods = leader, action = act.SwitchToWorkspace { name = "main" } },
-{ key = "2", mods = leader, action = act.SwitchToWorkspace { name = "feat-a" } },
-{ key = "3", mods = leader, action = act.SwitchToWorkspace { name = "feat-b" } },
+{ key = "1", mods = "LEADER", action = act.SwitchToWorkspace { name = "main" } },
+{ key = "2", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-a" } },
+{ key = "3", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-b" } },
 ```
 
 各 workspace には worktree ディレクトリへの Neovim + Agent ペインが含まれる。
@@ -133,8 +133,9 @@ claude code          # または codex / copilot-cli
 
 ```lua
 -- dotfiles/wezterm/wezterm.lua に追加する例
+-- leader は Ctrl+a
 {
-  key = "a", mods = leader,
+  key = "a", mods = "LEADER",
   action = act.SpawnTab "CurrentPaneDomain",
   args = { "claude", "code" },
 }
