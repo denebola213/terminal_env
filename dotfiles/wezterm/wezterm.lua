@@ -30,36 +30,36 @@ config.enable_kitty_keyboard = true
 -- ---------------------------------------------------------------------
 -- キーバインド (マルチプレクサ内蔵)
 -- ---------------------------------------------------------------------
-local leader = { key = "a", mods = "CTRL|SHIFT" }
+local leader = { key = "a", mods = "CTRL|SHIFT", timeout_milliseconds = 2000 }
 
 config.leader = leader
 config.keys = {
   -- pane 操作
-  { key = "|", mods = leader, action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-  { key = "-", mods = leader, action = act.SplitVertical   { domain = "CurrentPaneDomain" } },
-  { key = "h", mods = leader, action = act.ActivatePaneDirection "Left" },
-  { key = "l", mods = leader, action = act.ActivatePaneDirection "Right" },
-  { key = "k", mods = leader, action = act.ActivatePaneDirection "Up" },
-  { key = "j", mods = leader, action = act.ActivatePaneDirection "Down" },
-  { key = "z", mods = leader, action = act.TogglePaneZoomState },
-  { key = "x", mods = leader, action = act.CloseCurrentPane { confirm = false } },
+  { key = "|", mods = "LEADER|SHIFT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+  { key = "-", mods = "LEADER", action = act.SplitVertical   { domain = "CurrentPaneDomain" } },
+  { key = "h", mods = "LEADER", action = act.ActivatePaneDirection "Left" },
+  { key = "l", mods = "LEADER", action = act.ActivatePaneDirection "Right" },
+  { key = "k", mods = "LEADER", action = act.ActivatePaneDirection "Up" },
+  { key = "j", mods = "LEADER", action = act.ActivatePaneDirection "Down" },
+  { key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
+  { key = "x", mods = "LEADER", action = act.CloseCurrentPane { confirm = false } },
 
   -- tab 操作
-  { key = "c", mods = leader, action = act.SpawnTab "CurrentPaneDomain" },
-  { key = "n", mods = leader, action = act.ActivateTabRelative(1) },
-  { key = "p", mods = leader, action = act.ActivateTabRelative(-1) },
-  { key = "w", mods = leader, action = act.ShowLauncherArgs { flags = { "WORKSPACE", "TABS" } } },
+  { key = "c", mods = "LEADER", action = act.SpawnTab "CurrentPaneDomain" },
+  { key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
+  { key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
+  { key = "w", mods = "LEADER", action = act.ShowLauncherArgs { flags = { "WORKSPACE", "TABS" } } },
 
   -- workspace (worktree を 1 workspace に割り当て)
-  { key = "1", mods = leader, action = act.SwitchToWorkspace { name = "main" } },
-  { key = "2", mods = leader, action = act.SwitchToWorkspace { name = "feat-a" } },
-  { key = "3", mods = leader, action = act.SwitchToWorkspace { name = "feat-b" } },
+  { key = "1", mods = "LEADER", action = act.SwitchToWorkspace { name = "main" } },
+  { key = "2", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-a" } },
+  { key = "3", mods = "LEADER", action = act.SwitchToWorkspace { name = "feat-b" } },
 
   -- 共通ツール
-  { key = "g", mods = leader, action = act.SpawnCommandInNewTab {
+  { key = "g", mods = "LEADER", action = act.SpawnCommandInNewTab {
       args = { "lazygit" }, domain = "CurrentPaneDomain",
   } },
-  { key = "e", mods = leader, action = act.SpawnCommandInNewTab {
+  { key = "e", mods = "LEADER", action = act.SpawnCommandInNewTab {
       args = { "nvim", "." }, domain = "CurrentPaneDomain",
   } },
 }
