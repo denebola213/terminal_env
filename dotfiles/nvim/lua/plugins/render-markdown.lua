@@ -22,26 +22,14 @@ return {
     },
     link = {
       enabled = true,
-      custom = {
-        ["^%[.-%]%(.-%)"] = "link",
-      },
+      -- custom の各要素は { icon = "...", pattern = "...", kind = "..." }
+      -- デフォルトの GitHub/Google/Neovim 等のパターンを使用
     },
     latex = { enabled = true },
     html = { enabled = false },
   },
   ft = { "markdown", "norg", "rmd", "quarto" },
-  config = function(_, opts)
-    require("render-markdown").setup(opts)
-    -- Mermaid ブロックは snacks に任せる
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "markdown", "rmd", "quarto" },
-      callback = function()
-        -- snacks が image モジュールで Mermaid を処理
-        local ok, snacks = pcall(require, "snacks.image")
-        if ok then
-          snacks.activate("markdown", { pattern = "^###%%mermaid" })
-        end
-      end,
-    })
-  end,
+  -- Mermaid ブロックは snacks.image が自動検知して画像化する (設定は snacks.lua 参照)
+  -- render-markdown 側では code.style = "minimal" により装飾を最小限にして
+  -- snacks.image の描画を邪魔しない。
 }
